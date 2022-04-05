@@ -10,6 +10,7 @@ import {
   ReferenceArrayInput,
 } from "react-admin";
 
+import { TaskTitle } from "../task/TaskTitle";
 import { UserDetailTitle } from "../userDetail/UserDetailTitle";
 import { ROLES_OPTIONS } from "../user/RolesOptions";
 
@@ -26,6 +27,14 @@ export const UserCreate = (props: CreateProps): React.ReactElement => {
           optionText="label"
           optionValue="value"
         />
+        <ReferenceArrayInput
+          source="tasks"
+          reference="Task"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={TaskTitle} />
+        </ReferenceArrayInput>
         <ReferenceArrayInput
           source="userDetails"
           reference="UserDetail"

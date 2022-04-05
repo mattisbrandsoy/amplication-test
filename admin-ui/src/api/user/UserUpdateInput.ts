@@ -1,3 +1,4 @@
+import { TaskUpdateManyWithoutUsersInput } from "./TaskUpdateManyWithoutUsersInput";
 import { UserDetailUpdateManyWithoutUsersInput } from "./UserDetailUpdateManyWithoutUsersInput";
 
 export type UserUpdateInput = {
@@ -5,6 +6,7 @@ export type UserUpdateInput = {
   lastName?: string | null;
   password?: string;
   roles?: Array<string>;
+  tasks?: TaskUpdateManyWithoutUsersInput;
   userDetails?: UserDetailUpdateManyWithoutUsersInput;
   username?: string;
 };
