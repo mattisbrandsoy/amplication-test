@@ -14,6 +14,7 @@ model User {
   lastName    String?
   password    String
   roles       String[]
+  tasks       Task[]
   updatedAt   DateTime     @updatedAt
   userDetails UserDetail[]
   username    String       @unique
@@ -37,5 +38,13 @@ model UserDetail {
   lastLogin DateTime?
   updatedAt DateTime  @updatedAt
   userId    User?     @relation(fields: [userIdId], references: [id])
+  userIdId  String?
+}
+
+model Task {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+  userId    User?    @relation(fields: [userIdId], references: [id])
   userIdId  String?
 }
