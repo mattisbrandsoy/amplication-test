@@ -1,3 +1,5 @@
+import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
+
 export type AssetUpdateInput = {
   assetClass?: string | null;
   departmentId?: string | null;
@@ -5,4 +7,5 @@ export type AssetUpdateInput = {
   externalId?: string;
   name?: string | null;
   status?: boolean;
+  user?: UserWhereUniqueInput | null;
 };

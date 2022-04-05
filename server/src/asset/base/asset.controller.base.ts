@@ -70,7 +70,15 @@ export class AssetControllerBase {
       );
     }
     return await this.service.create({
-      data: data,
+      data: {
+        ...data,
+
+        user: data.user
+          ? {
+              connect: data.user,
+            }
+          : undefined,
+      },
       select: {
         assetClass: true,
         createdAt: true,
@@ -81,6 +89,12 @@ export class AssetControllerBase {
         name: true,
         status: true,
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -123,6 +137,12 @@ export class AssetControllerBase {
         name: true,
         status: true,
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     return results.map((result) => permission.filter(result));
@@ -164,6 +184,12 @@ export class AssetControllerBase {
         name: true,
         status: true,
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     if (result === null) {
@@ -215,7 +241,15 @@ export class AssetControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          user: data.user
+            ? {
+                connect: data.user,
+              }
+            : undefined,
+        },
         select: {
           assetClass: true,
           createdAt: true,
@@ -226,6 +260,12 @@ export class AssetControllerBase {
           name: true,
           status: true,
           updatedAt: true,
+
+          user: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {
@@ -268,6 +308,12 @@ export class AssetControllerBase {
           name: true,
           status: true,
           updatedAt: true,
+
+          user: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {
