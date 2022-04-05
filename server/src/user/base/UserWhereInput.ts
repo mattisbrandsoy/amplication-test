@@ -11,14 +11,27 @@ https://docs.amplication.com/docs/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { AssetListRelationFilter } from "../../asset/base/AssetListRelationFilter";
+import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { TaskListRelationFilter } from "../../task/base/TaskListRelationFilter";
 import { UserDetailListRelationFilter } from "../../userDetail/base/UserDetailListRelationFilter";
 @InputType()
 class UserWhereInput {
+  @ApiProperty({
+    required: false,
+    type: () => AssetListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => AssetListRelationFilter)
+  @IsOptional()
+  @Field(() => AssetListRelationFilter, {
+    nullable: true,
+  })
+  assets?: AssetListRelationFilter;
+
   @ApiProperty({
     required: false,
     type: StringNullableFilter,

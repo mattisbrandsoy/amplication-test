@@ -1,3 +1,5 @@
+import { User } from "../user/User";
+
 export type Asset = {
   assetClass: string | null;
   createdAt: Date;
@@ -8,4 +10,5 @@ export type Asset = {
   name: string | null;
   status: boolean;
   updatedAt: Date;
+  user?: User | null;
 };

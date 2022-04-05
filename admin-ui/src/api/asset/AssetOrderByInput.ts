@@ -10,4 +10,5 @@ export type AssetOrderByInput = {
   name?: SortOrder;
   status?: SortOrder;
   updatedAt?: SortOrder;
+  userId?: SortOrder;
 };

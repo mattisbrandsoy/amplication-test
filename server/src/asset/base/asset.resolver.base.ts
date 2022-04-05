@@ -25,6 +25,7 @@ import { DeleteAssetArgs } from "./DeleteAssetArgs";
 import { AssetFindManyArgs } from "./AssetFindManyArgs";
 import { AssetFindUniqueArgs } from "./AssetFindUniqueArgs";
 import { Asset } from "./Asset";
+import { User } from "../../user/base/User";
 import { AssetService } from "../asset.service";
 
 @graphql.Resolver(() => Asset)
@@ -131,7 +132,15 @@ export class AssetResolverBase {
     // @ts-ignore
     return await this.service.create({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        user: args.data.user
+          ? {
+              connect: args.data.user,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -170,7 +179,15 @@ export class AssetResolverBase {
       // @ts-ignore
       return await this.service.update({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          user: args.data.user
+            ? {
+                connect: args.data.user,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -202,5 +219,29 @@ export class AssetResolverBase {
       }
       throw error;
     }
+  }
+
+  @graphql.ResolveField(() => User, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Asset",
+    action: "read",
+    possession: "any",
+  })
+  async user(
+    @graphql.Parent() parent: Asset,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<User | null> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "User",
+    });
+    const result = await this.service.getUser(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return permission.filter(result);
   }
 }
