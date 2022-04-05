@@ -90,25 +90,31 @@ type MetaQueryPayload {
 
 type Mutation {
   createAsset(data: AssetCreateInput!): Asset!
+  createTask(data: TaskCreateInput!): Task!
   createUser(data: UserCreateInput!): User!
   createUserDetail(data: UserDetailCreateInput!): UserDetail!
   deleteAsset(where: AssetWhereUniqueInput!): Asset!
+  deleteTask(where: TaskWhereUniqueInput!): Task!
   deleteUser(where: UserWhereUniqueInput!): User!
   deleteUserDetail(where: UserDetailWhereUniqueInput!): UserDetail!
   login(credentials: Credentials!): UserInfo!
   signup(credentials: Credentials!): UserInfo!
   updateAsset(data: AssetUpdateInput!, where: AssetWhereUniqueInput!): Asset!
+  updateTask(data: TaskUpdateInput!, where: TaskWhereUniqueInput!): Task!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
   updateUserDetail(data: UserDetailUpdateInput!, where: UserDetailWhereUniqueInput!): UserDetail!
 }
 
 type Query {
   _assetsMeta(orderBy: [AssetOrderByInput!], skip: Float, take: Float, where: AssetWhereInput): MetaQueryPayload!
+  _tasksMeta(orderBy: [TaskOrderByInput!], skip: Float, take: Float, where: TaskWhereInput): MetaQueryPayload!
   _userDetailsMeta(orderBy: [UserDetailOrderByInput!], skip: Float, take: Float, where: UserDetailWhereInput): MetaQueryPayload!
   _usersMeta(orderBy: [UserOrderByInput!], skip: Float, take: Float, where: UserWhereInput): MetaQueryPayload!
   asset(where: AssetWhereUniqueInput!): Asset
   assets(orderBy: [AssetOrderByInput!], skip: Float, take: Float, where: AssetWhereInput): [Asset!]!
   me: User!
+  task(where: TaskWhereUniqueInput!): Task
+  tasks(orderBy: [TaskOrderByInput!], skip: Float, take: Float, where: TaskWhereInput): [Task!]!
   user(where: UserWhereUniqueInput!): User
   userDetail(where: UserDetailWhereUniqueInput!): UserDetail
   userDetails(orderBy: [UserDetailOrderByInput!], skip: Float, take: Float, where: UserDetailWhereInput): [UserDetail!]!
@@ -156,12 +162,60 @@ input StringNullableFilter {
   startsWith: String
 }
 
+type Task {
+  createdAt: DateTime!
+  id: String!
+  updatedAt: DateTime!
+  userId: User
+}
+
+input TaskCreateInput {
+  userId: UserWhereUniqueInput
+}
+
+input TaskCreateNestedManyWithoutUsersInput {
+  connect: [TaskWhereUniqueInput!]
+}
+
+input TaskListRelationFilter {
+  every: TaskWhereInput
+  none: TaskWhereInput
+  some: TaskWhereInput
+}
+
+input TaskOrderByInput {
+  createdAt: SortOrder
+  id: SortOrder
+  updatedAt: SortOrder
+  userIdId: SortOrder
+}
+
+input TaskUpdateInput {
+  userId: UserWhereUniqueInput
+}
+
+input TaskUpdateManyWithoutUsersInput {
+  connect: [TaskWhereUniqueInput!]
+  disconnect: [TaskWhereUniqueInput!]
+  set: [TaskWhereUniqueInput!]
+}
+
+input TaskWhereInput {
+  id: StringFilter
+  userId: UserWhereUniqueInput
+}
+
+input TaskWhereUniqueInput {
+  id: String!
+}
+
 type User {
   createdAt: DateTime!
   firstName: String
   id: String!
   lastName: String
   roles: [String!]!
+  tasks(orderBy: [TaskOrderByInput!], skip: Float, take: Float, where: TaskWhereInput): [Task!]!
   updatedAt: DateTime!
   userDetails(orderBy: [UserDetailOrderByInput!], skip: Float, take: Float, where: UserDetailWhereInput): [UserDetail!]!
   username: String!
@@ -172,6 +226,7 @@ input UserCreateInput {
   lastName: String
   password: String!
   roles: [String!]!
+  tasks: TaskCreateNestedManyWithoutUsersInput
   userDetails: UserDetailCreateNestedManyWithoutUsersInput
   username: String!
 }
@@ -250,6 +305,7 @@ input UserUpdateInput {
   lastName: String
   password: String
   roles: [String!]
+  tasks: TaskUpdateManyWithoutUsersInput
   userDetails: UserDetailUpdateManyWithoutUsersInput
   username: String
 }
@@ -258,6 +314,7 @@ input UserWhereInput {
   firstName: StringNullableFilter
   id: StringFilter
   lastName: StringNullableFilter
+  tasks: TaskListRelationFilter
   userDetails: UserDetailListRelationFilter
   username: StringFilter
 }
