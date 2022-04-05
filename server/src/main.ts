@@ -29,9 +29,8 @@ async function main() {
   SwaggerModule.setup(swaggerPath, app, document, swaggerSetupOptions);
 
   void app.listen(PORT);
-    
+
   return app;
-  console.log('App running on: ', PORT)
 }
 
 module.exports = main();

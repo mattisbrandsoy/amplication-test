@@ -9,5 +9,3 @@ It consists of two packages:
 ### Learn more
 
 You can learn more in the [Amplication documentation](https://docs.amplication.com/guides/getting-started).
-
-Docs : https://docs.amplication.com/docs/
