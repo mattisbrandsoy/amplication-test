@@ -96,6 +96,7 @@ type Mutation {
   deleteUser(where: UserWhereUniqueInput!): User!
   deleteUserDetail(where: UserDetailWhereUniqueInput!): UserDetail!
   login(credentials: Credentials!): UserInfo!
+  signup(credentials: Credentials!): UserInfo!
   updateAsset(data: AssetUpdateInput!, where: AssetWhereUniqueInput!): Asset!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
   updateUserDetail(data: UserDetailUpdateInput!, where: UserDetailWhereUniqueInput!): UserDetail!
@@ -107,6 +108,7 @@ type Query {
   _usersMeta(orderBy: [UserOrderByInput!], skip: Float, take: Float, where: UserWhereInput): MetaQueryPayload!
   asset(where: AssetWhereUniqueInput!): Asset
   assets(orderBy: [AssetOrderByInput!], skip: Float, take: Float, where: AssetWhereInput): [Asset!]!
+  me: User!
   user(where: UserWhereUniqueInput!): User
   userDetail(where: UserDetailWhereUniqueInput!): UserDetail
   userDetails(orderBy: [UserDetailOrderByInput!], skip: Float, take: Float, where: UserDetailWhereInput): [UserDetail!]!
