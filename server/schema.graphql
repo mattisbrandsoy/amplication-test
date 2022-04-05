@@ -12,6 +12,7 @@ type Asset {
   name: String
   status: Boolean!
   updatedAt: DateTime!
+  user: User
 }
 
 input AssetCreateInput {
@@ -21,6 +22,17 @@ input AssetCreateInput {
   externalId: String!
   name: String
   status: Boolean!
+  user: UserWhereUniqueInput
+}
+
+input AssetCreateNestedManyWithoutUsersInput {
+  connect: [AssetWhereUniqueInput!]
+}
+
+input AssetListRelationFilter {
+  every: AssetWhereInput
+  none: AssetWhereInput
+  some: AssetWhereInput
 }
 
 input AssetOrderByInput {
@@ -33,6 +45,7 @@ input AssetOrderByInput {
   name: SortOrder
   status: SortOrder
   updatedAt: SortOrder
+  userId: SortOrder
 }
 
 input AssetUpdateInput {
@@ -42,6 +55,13 @@ input AssetUpdateInput {
   externalId: String
   name: String
   status: Boolean
+  user: UserWhereUniqueInput
+}
+
+input AssetUpdateManyWithoutUsersInput {
+  connect: [AssetWhereUniqueInput!]
+  disconnect: [AssetWhereUniqueInput!]
+  set: [AssetWhereUniqueInput!]
 }
 
 input AssetWhereInput {
@@ -52,6 +72,7 @@ input AssetWhereInput {
   id: StringFilter
   name: StringNullableFilter
   status: BooleanFilter
+  user: UserWhereUniqueInput
 }
 
 input AssetWhereUniqueInput {
@@ -210,6 +231,7 @@ input TaskWhereUniqueInput {
 }
 
 type User {
+  assets(orderBy: [AssetOrderByInput!], skip: Float, take: Float, where: AssetWhereInput): [Asset!]!
   createdAt: DateTime!
   firstName: String
   id: String!
@@ -222,6 +244,7 @@ type User {
 }
 
 input UserCreateInput {
+  assets: AssetCreateNestedManyWithoutUsersInput
   firstName: String
   lastName: String
   password: String!
@@ -301,6 +324,7 @@ input UserOrderByInput {
 }
 
 input UserUpdateInput {
+  assets: AssetUpdateManyWithoutUsersInput
   firstName: String
   lastName: String
   password: String
@@ -311,6 +335,7 @@ input UserUpdateInput {
 }
 
 input UserWhereInput {
+  assets: AssetListRelationFilter
   firstName: StringNullableFilter
   id: StringFilter
   lastName: StringNullableFilter
