@@ -54,27 +54,6 @@ npm run db:init
 npm start
 ```
 
-## Running migrations
-
-- Pull Changes
-
-```
-git pull
-```
-
-- Run prisma migration
-
-```
-npx prisma migrate dev --name custom_migration_name
-```
-
-- Regenerate prisma client
-
-```
-npx prisma generate
-```
-
-
 ## Learn more
 
 You can learn more in the [Amplication documentation](https://docs.amplication.com/guides/getting-started).

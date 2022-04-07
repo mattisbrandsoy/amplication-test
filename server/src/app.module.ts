@@ -3,6 +3,7 @@ import { UserModule } from "./user/user.module";
 import { AssetModule } from "./asset/asset.module";
 import { UserDetailModule } from "./userDetail/userDetail.module";
 import { TaskModule } from "./task/task.module";
+import { ItemModule } from "./item/item.module";
 import { ACLModule } from "./auth/acl.module";
 import { AuthModule } from "./auth/auth.module";
 import { HealthModule } from "./health/health.module";
@@ -20,6 +21,7 @@ import { GraphQLModule } from "@nestjs/graphql";
     AssetModule,
     UserDetailModule,
     TaskModule,
+    ItemModule,
     ACLModule,
     AuthModule,
     HealthModule,
