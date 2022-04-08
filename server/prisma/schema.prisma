@@ -51,3 +51,9 @@ model Task {
   userId    User?    @relation(fields: [userIdId], references: [id])
   userIdId  String?
 }
+
+model Item {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
