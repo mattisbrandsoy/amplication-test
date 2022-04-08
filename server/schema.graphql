@@ -105,6 +105,26 @@ input DateTimeNullableFilter {
   notIn: [DateTime!]
 }
 
+type Item {
+  createdAt: DateTime!
+  id: String!
+  updatedAt: DateTime!
+}
+
+input ItemOrderByInput {
+  createdAt: SortOrder
+  id: SortOrder
+  updatedAt: SortOrder
+}
+
+input ItemWhereInput {
+  id: StringFilter
+}
+
+input ItemWhereUniqueInput {
+  id: String!
+}
+
 type MetaQueryPayload {
   count: String!
 }
@@ -115,11 +135,11 @@ type Mutation {
   createUser(data: UserCreateInput!): User!
   createUserDetail(data: UserDetailCreateInput!): UserDetail!
   deleteAsset(where: AssetWhereUniqueInput!): Asset!
+  deleteItem(where: ItemWhereUniqueInput!): Item!
   deleteTask(where: TaskWhereUniqueInput!): Task!
   deleteUser(where: UserWhereUniqueInput!): User!
   deleteUserDetail(where: UserDetailWhereUniqueInput!): UserDetail!
   login(credentials: Credentials!): UserInfo!
-  signup(credentials: Credentials!): UserInfo!
   updateAsset(data: AssetUpdateInput!, where: AssetWhereUniqueInput!): Asset!
   updateTask(data: TaskUpdateInput!, where: TaskWhereUniqueInput!): Task!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
@@ -128,11 +148,14 @@ type Mutation {
 
 type Query {
   _assetsMeta(orderBy: [AssetOrderByInput!], skip: Float, take: Float, where: AssetWhereInput): MetaQueryPayload!
+  _itemsMeta(orderBy: [ItemOrderByInput!], skip: Float, take: Float, where: ItemWhereInput): MetaQueryPayload!
   _tasksMeta(orderBy: [TaskOrderByInput!], skip: Float, take: Float, where: TaskWhereInput): MetaQueryPayload!
   _userDetailsMeta(orderBy: [UserDetailOrderByInput!], skip: Float, take: Float, where: UserDetailWhereInput): MetaQueryPayload!
   _usersMeta(orderBy: [UserOrderByInput!], skip: Float, take: Float, where: UserWhereInput): MetaQueryPayload!
   asset(where: AssetWhereUniqueInput!): Asset
   assets(orderBy: [AssetOrderByInput!], skip: Float, take: Float, where: AssetWhereInput): [Asset!]!
+  item(where: ItemWhereUniqueInput!): Item
+  items(orderBy: [ItemOrderByInput!], skip: Float, take: Float, where: ItemWhereInput): [Item!]!
   me: User!
   task(where: TaskWhereUniqueInput!): Task
   tasks(orderBy: [TaskOrderByInput!], skip: Float, take: Float, where: TaskWhereInput): [Task!]!
